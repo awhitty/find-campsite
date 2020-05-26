@@ -2,6 +2,10 @@
 
 This is a simple script that checks recreation.gov for any available sites at a campground for a particular day of the week.
 
+## Install
+
+`npm install -g find-campsite` or `yarn global add find-campsite` should do the trick.
+
 ## Usage
 
 `find-campsite --campground <campground ID> [--day sat] [--nights 1]`
