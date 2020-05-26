@@ -8,7 +8,7 @@ This is a simple script that checks recreation.gov for any sites at a campground
 
 ## Usage
 
-`find-campsite --campground <campground ID> [--day sat] [--nights 1]`
+`find-campsite --campground <campground ID> [--day fri] [--nights 2]`
 
 You can find a campground's ID by looking at your URL bar on recreation.gov. In the URL `https://www.recreation.gov/camping/campgrounds/231958` for Arroyo Seco Campground, `231958` is the ID.
 
