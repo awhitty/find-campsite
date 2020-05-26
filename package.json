@@ -1,0 +1,12 @@
+{
+  "name": "find-campsite",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "fake-useragent": "^1.0.1",
+    "luxon": "^1.24.1",
+    "yargs": "^15.3.1"
+  }
+}
