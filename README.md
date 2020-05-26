@@ -1,6 +1,6 @@
 # find-campsite
 
-This is a simple script that checks recreation.gov for any available sites at a campground for a particular day of the week.
+This is a simple script that checks recreation.gov for any sites at a campground available on a particular day of the week.
 
 ## Install
 
@@ -12,7 +12,7 @@ This is a simple script that checks recreation.gov for any available sites at a 
 
 You can find a campground's ID by looking at your URL bar on recreation.gov. In the URL `https://www.recreation.gov/camping/campgrounds/231958` for Arroyo Seco Campground, `231958` is the ID.
 
-### Example
+### Examples
 
 ```
 > find-campsite --campground 231958
@@ -46,3 +46,5 @@ Checking for sites at ARROYO SECO available on a Monday for 1 night.
 
 No sites found for the given constraints :(
 ```
+
+Drats :(
