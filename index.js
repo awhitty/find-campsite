@@ -2,8 +2,6 @@ const axios = require('axios').default;
 const fakeUa = require('fake-useragent');
 const { DateTime } = require('luxon');
 
-const NUM_MONTHS_TO_CHECK = 6;
-
 async function makeGetRequest(url) {
   return await axios.get(url, {
     headers: {
@@ -40,10 +38,10 @@ async function getCampground(campgroundId) {
   }
 }
 
-async function getCampsites(campgroundId) {
+async function getCampsites(campgroundId, monthsToCheck) {
   const result = [];
 
-  for (let deltaMonth = 0; deltaMonth < NUM_MONTHS_TO_CHECK; deltaMonth += 1) {
+  for (let deltaMonth = 0; deltaMonth < monthsToCheck; deltaMonth += 1) {
     const searchStart = DateTime.local()
       .startOf('month')
       .plus({ month: deltaMonth });
@@ -53,7 +51,6 @@ async function getCampsites(campgroundId) {
 
     result.push(...Object.values(response.data.campsites));
   }
-
 
   return result;
 }
@@ -123,7 +120,7 @@ function formatRange(start, end) {
   return `${startFmt} to ${endFmt}`;
 }
 
-async function doTheThing(campgroundId, startDayOfWeek, lengthOfStay) {
+async function doTheThing(campgroundId, startDayOfWeek, lengthOfStay, monthsToCheck) {
   const campground = await getCampground(campgroundId);
 
   if (!campground) {
@@ -139,7 +136,7 @@ async function doTheThing(campgroundId, startDayOfWeek, lengthOfStay) {
   );
   console.log();
 
-  const campsites = await getCampsites(campgroundId);
+  const campsites = await getCampsites(campgroundId, monthsToCheck);
 
   const matches = campsites
     .map((site) => {
@@ -182,7 +179,7 @@ async function doTheThing(campgroundId, startDayOfWeek, lengthOfStay) {
 
 async function main(argv) {
   try {
-    await doTheThing(argv.campground, dayToWeekday(argv.start), argv.nights);
+    await doTheThing(argv.campground, dayToWeekday(argv.start), argv.nights, argv.months);
   } catch (e) {
     console.error(e.message);
     process.exit(1);
@@ -217,6 +214,11 @@ if (require.main === module) {
       alias: 'n',
       type: 'number',
       default: 2,
+    })
+    .option('months', {
+      type: 'number',
+      default: 6,
+      description: 'Number of months to check',
     });
 
   main(argv);
