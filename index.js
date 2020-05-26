@@ -111,7 +111,9 @@ function regroupMatches(matches) {
       result[key].campsites.push(match.site);
     });
   });
-  return Object.values(result);
+  return Object.values(result).sort(
+    (a, b) => a.range[0].date.diff(b.range[0].date).as('days'),
+  );
 }
 
 function formatRange(start, end) {
@@ -120,7 +122,12 @@ function formatRange(start, end) {
   return `${startFmt} to ${endFmt}`;
 }
 
-async function doTheThing(campgroundId, startDayOfWeek, lengthOfStay, monthsToCheck) {
+async function doTheThing(
+  campgroundId,
+  startDayOfWeek,
+  lengthOfStay,
+  monthsToCheck,
+) {
   const campground = await getCampground(campgroundId);
 
   if (!campground) {
@@ -128,11 +135,11 @@ async function doTheThing(campgroundId, startDayOfWeek, lengthOfStay, monthsToCh
   }
 
   console.log(
-    `Checking availabilities at ${
+    `Checking for sites at ${
       campground.facility_name
-    } starting on a ${weekdayToDay(startDayOfWeek)} for ${lengthOfStay} ${
-      lengthOfStay === 0 ? 'night' : 'nights'
-    }`,
+    } available on a ${weekdayToDay(startDayOfWeek)} for ${lengthOfStay} ${
+      lengthOfStay === 1 ? 'night' : 'nights'
+    }.`,
   );
   console.log();
 
@@ -155,15 +162,15 @@ async function doTheThing(campgroundId, startDayOfWeek, lengthOfStay, monthsToCh
   if (regrouped.length > 0) {
     const length = regrouped.length;
     console.log(
-      `Found ${length} matching date ${length === 1 ? 'range' : 'ranges'}:`,
+      `Found ${length} matching ${length === 1 ? 'itinerary' : 'itineraries'}:`,
     );
     console.log();
     regrouped.forEach(({ range, campsites }) => {
       const [start, end] = range;
-      const diff = Math.floor(start.date.diffNow('week').as('weeks'));
+      const diff = Math.round(start.date.diffNow('week').as('weeks'));
       console.log(
         `${formatRange(start, end)} (in ${diff} ${
-          diff === 0 ? 'week' : 'weeks'
+          diff === 1 ? 'week' : 'weeks'
         }):`,
       );
 
@@ -171,15 +178,20 @@ async function doTheThing(campgroundId, startDayOfWeek, lengthOfStay, monthsToCh
         const url = `https://www.recreation.gov/camping/campsites/${site.campsite_id}`;
         console.log(`- ${site.site} (${site.loop}) ${url}`);
       });
-
-      console.log();
     });
+  } else {
+    console.log('No sites found for the given constraints :(')
   }
 }
 
 async function main(argv) {
   try {
-    await doTheThing(argv.campground, dayToWeekday(argv.start), argv.nights, argv.months);
+    await doTheThing(
+      argv.campground,
+      dayToWeekday(argv.day),
+      argv.nights,
+      argv.months,
+    );
   } catch (e) {
     console.error(e.message);
     process.exit(1);
@@ -187,11 +199,11 @@ async function main(argv) {
 }
 
 function dayToWeekday(day) {
-  return ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].indexOf(day);
+  return ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].indexOf(day) + 1;
 }
 
 function weekdayToDay(weekday) {
-  return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][weekday];
+  return ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][weekday - 1];
 }
 
 if (require.main === module) {
@@ -203,7 +215,7 @@ if (require.main === module) {
       description: "Campground's identifier",
       required: true,
     })
-    .option('start', {
+    .option('day', {
       alias: 'd',
       type: 'string',
       choices: ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
