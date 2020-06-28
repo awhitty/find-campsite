@@ -1,7 +1,8 @@
 {
   "name": "find-campsite",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
+  "bin": "index.js",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
