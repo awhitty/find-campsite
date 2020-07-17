@@ -4,6 +4,9 @@
   "main": "dist/index.js",
   "bin": "dist/index.js",
   "license": "MIT",
+  "files": [
+    "dist/**/*"
+  ],
   "dependencies": {
     "axios": "^0.19.2",
     "fake-useragent": "^1.0.1",
