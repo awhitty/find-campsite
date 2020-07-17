@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { DateTime } from "luxon";
 import { ICampsite, DateAndStatus, ICampground } from "./types";
 import * as RecreationGov from "./recreation_gov";
