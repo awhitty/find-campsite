@@ -12,7 +12,8 @@ async function makeGetRequest(url) {
 
 function buildCampsiteURL(campgroundId, startDate) {
   const adjustedStartDate = startDate.toUTC().startOf('day').toISO();
-  return `https://www.recreation.gov/api/camps/availability/campground/${campgroundId}/month?start_date=${adjustedStartDate}`;
+  const encodedStartDate = encodeURIComponent(adjustedStartDate);
+  return `https://www.recreation.gov/api/camps/availability/campground/${campgroundId}/month?start_date=${encodedStartDate}`;
 }
 
 function parseAvailabilities(availabilities) {
