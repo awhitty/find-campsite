@@ -9,7 +9,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "fake-useragent": "^1.0.1",
     "luxon": "^1.24.1",
     "yargs": "^15.3.1"
