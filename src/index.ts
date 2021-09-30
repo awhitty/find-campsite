@@ -18,15 +18,13 @@ function matchAvailableDateRanges(
 
   sortedAvailabilities.forEach((availability) => {
     if (sequenceStart) {
-      if (availability.isAvailable) {
-        if (sequenceLength < lengthOfStay) {
-          sequenceLength += 1;
-        } else {
-          const sequenceEnd = availability.date;
-          result.push({ start: sequenceStart, end: sequenceEnd });
-          sequenceStart = null;
-          sequenceLength = 0;
-        }
+      if (sequenceLength === lengthOfStay) {
+        const sequenceEnd = availability.date;
+        result.push({ start: sequenceStart, end: sequenceEnd });
+        sequenceStart = null;
+        sequenceLength = 0;
+      } else if (availability.isAvailable && sequenceLength < lengthOfStay) {
+        sequenceLength += 1;
       } else {
         sequenceStart = null;
         sequenceLength = 0;
