@@ -26,10 +26,10 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "ts": "tsc",
-    "ts:watch": "tsc --watch",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
     "ts:check": "tsc --noEmit",
-    "lint": "eslint . --ext js,ts",
+    "lint:check": "eslint . --ext js,ts",
     "lint:fix": "eslint . --fix --ext js,ts"
   }
 }
