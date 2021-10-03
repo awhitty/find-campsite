@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: egordm/gha-yarn-node-cache@v1
+      - name: Install JS dependencies
+        run: yarn install
+      - name: Lint
+        run: yarn lint
+      - name: TypeScript
+        run: yarn ts:check
