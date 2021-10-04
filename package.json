@@ -8,6 +8,9 @@
     "dist/**/*",
     "LICENSE"
   ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "axios": "^0.21.2",
     "fake-useragent": "^1.0.1",
