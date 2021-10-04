@@ -18,6 +18,6 @@ jobs:
       - name: NPM token
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
-      - run: yarn release --dry-run
+      - run: yarn release --dry-run --npm.skipChecks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
