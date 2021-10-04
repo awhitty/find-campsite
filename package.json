@@ -1,6 +1,9 @@
 {
   "name": "find-campsite",
   "version": "1.2.2",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "main": "dist/index.js",
   "bin": "dist/index.js",
   "license": "MIT",
@@ -8,9 +11,6 @@
     "dist/**/*",
     "LICENSE"
   ],
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "dependencies": {
     "axios": "^0.21.2",
     "fake-useragent": "^1.0.1",
