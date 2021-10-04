@@ -1,7 +1,11 @@
-name: Release to NPM
-on: [push]
+name: Releases
+on:
+  push:
+    branches:
+      - main
 jobs:
   release:
+    name: Publish package
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,6 +22,6 @@ jobs:
       - name: NPM token
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
 
-      - run: yarn release --dry-run --npm.skipChecks
+      - run: yarn release --npm.skipChecks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
