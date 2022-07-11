@@ -206,6 +206,7 @@ if (require.main === module) {
       default: 2,
     })
     .option('months', {
+      alias: 'm',
       type: 'number',
       default: 6,
       description: 'Number of months to check',
