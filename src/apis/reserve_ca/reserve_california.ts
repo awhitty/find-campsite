@@ -55,14 +55,28 @@ export async function getCampsites(
 ): Promise<Campsite[]> {
   const start = DateTime.local().startOf('day');
   const end = start.plus({ months: monthsToCheck });
+  return getCampsitesBetweenDates(campgroundId, start, end);
+}
 
+async function getCampsitesBetweenDates(
+  campgroundId: string,
+  start: DateTime,
+  end: DateTime,
+  results: Campsite[] = []
+): Promise<Campsite[]> {
   const request = {
     FacilityId: campgroundId,
     StartDate: start.toFormat(API_DATE_FORMAT),
     EndDate: end.toFormat(API_DATE_FORMAT),
   };
-
   const response = await makePostRequest<API.GridResponse>(API_ENDPOINT, request);
+  results = [
+    ...results,
+    ...Object.values(response.data.Facility.Units).map((data) => new Campsite(data as API.Unit))];
 
-  return Object.values(response.data.Facility.Units).map((data) => new Campsite(data as API.Unit));
+  const actualEndDate = DateTime.fromISO(response.data.EndDate);
+  if (actualEndDate < end) {
+    return getCampsitesBetweenDates(campgroundId, actualEndDate.plus({ days: 1 }), end, results);
+  }
+  return results;
 }

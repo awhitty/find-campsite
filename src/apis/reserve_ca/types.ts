@@ -2,11 +2,11 @@ export interface GridResponse {
   Message: string;
   Filters: Filters;
   UnitTypeId: number;
-  StartDate: Date;
-  EndDate: Date;
-  TodayDate: Date;
-  MinDate: Date;
-  MaxDate: Date;
+  StartDate: string;
+  EndDate: string;
+  TodayDate: string;
+  MinDate: string;
+  MaxDate: string;
   AvailableUnitsOnly: boolean;
   UnitSort: string;
   Facility: Facility;
