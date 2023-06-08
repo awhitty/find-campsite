@@ -2,13 +2,25 @@
 
 This is a simple script that checks recreation.gov or reservecalifornia.com for any sites at a campground available for a length of time starting on a particular day of the week.
 
-## Install
+## Desktop Install
 
 `npm install -g find-campsite` or `yarn global add find-campsite` should do the trick.
 
-## Usage
+### Usage
 
 `find-campsite --campground <campground ID> [--api recreation_gov OR reserve_ca] [--day fri] [--nights 2]`
+
+## Docker Installation
+
+`git clone https://github.com/awhitty/find-campsite.git`
+
+`cd find-campsite`
+
+`docker build -t find-campsite-image .`
+
+### Usage
+
+`docker run -p 8080 find-campsite-image find-campsite --campground <campground ID> [--api recreation_gov OR reserve_ca] [--day fri] [--nights 2]`
 
 ### Campground IDs
 
