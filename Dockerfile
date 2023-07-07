@@ -1,5 +1,5 @@
-# Use the official Node.js 14 image as the base image
-FROM node:14
+# Use the official Node.js 20 image as the base image
+FROM node:20-bookworm-slim
 
 # Set the working directory inside the container
 WORKDIR /app
