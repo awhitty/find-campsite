@@ -14,19 +14,19 @@
   "dependencies": {
     "axios": "^0.21.2",
     "fake-useragent": "^1.0.1",
-    "luxon": "^1.24.1",
-    "yargs": "^15.3.1"
+    "luxon": "^3.4.1",
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@types/luxon": "^1.24.1",
+    "@types/luxon": "^3.3.1",
     "@types/node": "^14.0.23",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.4.1",
-    "release-it": "^14.11.6",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^3.0.2",
+    "release-it": "^16.1.5",
     "typescript": "^3.9.7"
   },
   "scripts": {
